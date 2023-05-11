@@ -14,26 +14,29 @@ class Pokemon
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::OBJECT)]
-    private ?object $pokemon = null;
+    #[ORM\Column]
+    private ?string $pokemon_name = null;
 
     #[ORM\ManyToOne(inversedBy: 'pokemon')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $pokemon_image = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPokemon(): ?object
+    public function getPokemonName(): ?string
     {
-        return $this->pokemon;
+        return $this->pokemon_name;
     }
 
-    public function setPokemon(object $pokemon): self
+    public function setPokemonName(string $pokemon_name): self
     {
-        $this->pokemon = $pokemon;
+        $this->pokemon_name = $pokemon_name;
 
         return $this;
     }
@@ -46,6 +49,18 @@ class Pokemon
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPokemonImage(): ?string
+    {
+        return $this->pokemon_image;
+    }
+
+    public function setPokemonImage(string $pokemon_image): self
+    {
+        $this->pokemon_image = $pokemon_image;
 
         return $this;
     }
