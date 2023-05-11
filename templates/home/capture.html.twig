@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomePageController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<link rel="stylesheet" href="assets/style.css">
+
+<div class="example-wrapper">
+    <h1>Vous avez capturé un nouveau pokémon</h1>
+    <div id="pokemon-info">
+      <h2 id="pokemon-name"></h2>
+      <p id="pokemon-description">{{name}}</p>
+      <img id="pokemon-image" src="{{img}}">
+      
+
+    </div>
+</div>
+{% endblock %}
+
+
+
