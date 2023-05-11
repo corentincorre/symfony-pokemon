@@ -16,13 +16,16 @@ class TradeController extends AbstractController
 
         return $this->render('trade/index.html.twig', [
             'controller_name' => 'TradeController',
-            'trades' => $tr->findBy(['sender']),
+            'user' => $user,
+            //'trades' => $tr->findBy(['sender']),
         ]);
     }
-    #[Route('/trade/new', name: 'app_new_trade')]
+
+    #[Route('/trade/new', name: 'app_trade_new')]
     public function add(UserInterface $user): Response
     {
         return $this->render('trade/new.html.twig', [
+            'user' => $user,
             'controller_name' => 'TradeController',
         ]);
     }

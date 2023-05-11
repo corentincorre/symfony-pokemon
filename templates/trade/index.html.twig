@@ -8,10 +8,20 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="header">
+        <div class="header-container">
+            <a href="{{ path('app_home_page') }}">Jouer</a>
+            <div class="profile-actions">
+                <a href="{{ path('app_account') }}">Voir mon profil | {{ user }}</a>
+                <a href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+        </div>
+    </div>
 
-    This friendly message is coming from:
+<div class="example-wrapper">
+    <h1>Mes échanges</h1>
+
+    <a href="#">Créer un échange</a>
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/Users/coren/Documents/ECV/php/symfony/pokemon/src/Controller/TradeController.php'|file_link(0) }}">src/Controller/TradeController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/Users/coren/Documents/ECV/php/symfony/pokemon/templates/trade/index.html.twig'|file_link(0) }}">templates/trade/index.html.twig</a></code></li>
