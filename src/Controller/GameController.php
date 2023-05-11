@@ -24,7 +24,7 @@ class GameController extends AbstractController
         $randomPkm = $this->spin();
         if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > new \DateTime('-2 minutes'))){
             $this->addFlash('error', 'Aucun pokemon n\'a été trouvé');
-            return $this->redirect('app_home_page');
+            return $this->redirect('/');
         }
         $pokemon = new Pokemon();
         $pokemon->setUser($user);
@@ -35,8 +35,9 @@ class GameController extends AbstractController
         $em->persist($user);
         $em->flush();
 
-        return $this->render('pokemon/capture.html.twig', [
+        return $this->render('game/capture.html.twig', [
             'controller_name' => 'HomeController',
+            'user' => $user,
             'name' => $pokemon->getPokemonName(),
             'img' => $pokemon->getPokemonImage(),
         ]);
