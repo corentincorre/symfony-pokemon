@@ -42,9 +42,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $last_game = null;
 
+    #[ORM\OneToMany(mappedBy: 'sender', targetEntity: Trade::class)]
+    private Collection $trades_send;
+
+    #[ORM\OneToMany(mappedBy: 'receiver', targetEntity: Trade::class)]
+    private Collection $trades_receive;
+
     public function __construct()
     {
         $this->pokemon = new ArrayCollection();
+        $this->trades_send = new ArrayCollection();
+        $this->trades_receive = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +191,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastGame(?\DateTimeInterface $last_game): self
     {
         $this->last_game = $last_game;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trade>
+     */
+    public function getTradesSend(): Collection
+    {
+        return $this->trades_send;
+    }
+
+    public function addTradesSend(Trade $tradesSend): self
+    {
+        if (!$this->trades_send->contains($tradesSend)) {
+            $this->trades_send->add($tradesSend);
+            $tradesSend->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTradesSend(Trade $tradesSend): self
+    {
+        if ($this->trades_send->removeElement($tradesSend)) {
+            // set the owning side to null (unless already changed)
+            if ($tradesSend->getSender() === $this) {
+                $tradesSend->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trade>
+     */
+    public function getTradesReceive(): Collection
+    {
+        return $this->trades_receive;
+    }
+
+    public function addTradesReceive(Trade $tradesReceive): self
+    {
+        if (!$this->trades_receive->contains($tradesReceive)) {
+            $this->trades_receive->add($tradesReceive);
+            $tradesReceive->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTradesReceive(Trade $tradesReceive): self
+    {
+        if ($this->trades_receive->removeElement($tradesReceive)) {
+            // set the owning side to null (unless already changed)
+            if ($tradesReceive->getReceiver() === $this) {
+                $tradesReceive->setReceiver(null);
+            }
+        }
 
         return $this;
     }

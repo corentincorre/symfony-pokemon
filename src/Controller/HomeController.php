@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Pokemon;
 use App\Repository\PokemonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class HomeController extends AbstractController
 {
@@ -18,7 +20,7 @@ class HomeController extends AbstractController
         ]);
     }
     #[Route('/capture', name: 'app_capture')]
-    public function capture(UserInterface $user, PokemonRepository $pr, EntityManagerInterface $em): Response
+    public function capture(UserInterface $user, EntityManagerInterface $em): Response
     {
         $randomPkm = $this->spin();
         if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > date('Y-m-d',strtotime('-2 minutes')))){
