@@ -11,12 +11,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home_page')]
-    public function index(): Response
+    public function index(PokemonRepository $pr): Response
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'pokemons' => $pr->findAll()
         ]);
     }
+
+
     #[Route('/capture', name: 'app_capture')]
     public function capture(UserInterface $user, PokemonRepository $pr, EntityManagerInterface $em): Response
     {
