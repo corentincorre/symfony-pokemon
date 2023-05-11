@@ -9,9 +9,16 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Mes Pokemons/h1>
-    {% for pokemon in pokemons %}
-        {{pokemon.name}}
-    {% endfor %}
+    <button id="spin-button" ><a href="/capture">Capturer un pokémon</a></button>
+    <h1>Mes Pokemons</h1>
+        {% if (pokemons|length)%}
+            {% for pokemon in pokemons %}
+                {{pokemon.name}}
+            {% endfor %}
+        {% else %}
+            <p>Vous n'avez pas encore de Pokemons, capturez en un</p> 
+
+        {% endif %}
+        
 </div>
 {% endblock %}
