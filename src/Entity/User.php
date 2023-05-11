@@ -39,6 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Pokemon::class)]
     private Collection $pokemon;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $last_game = null;
+
     public function __construct()
     {
         $this->pokemon = new ArrayCollection();
@@ -170,5 +173,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->username;
+    }
+
+    public function getLastGame(): ?\DateTimeInterface
+    {
+        return $this->last_game;
+    }
+
+    public function setLastGame(?\DateTimeInterface $last_game): self
+    {
+        $this->last_game = $last_game;
+
+        return $this;
     }
 }

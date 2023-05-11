@@ -20,16 +20,26 @@ class HomeController extends AbstractController
     #[Route('/capture', name: 'app_capture')]
     public function capture(UserInterface $user, PokemonRepository $pr, EntityManagerInterface $em): Response
     {
-        $pokemon = $this->spin();
-        if($pokemon){
-            $pokemon = new Pokemon();
-            return $this->render('home/capture.html.twig', [
-                'controller_name' => 'HomeController',
-                'name' => $pokemon->name,
-                'img' => $pokemon->sprites->front_default,
-            ]);
+        $randomPkm = $this->spin();
+        if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > date('Y-m-d',strtotime('-2 minutes')))){
+            $this->addFlash('error', 'Aucun pokemon n\'a été trouvé');
+            return $this->redirect('app_home_page');
         }
-        else $this->redirect('app_home_page');
+        $pokemon = new Pokemon();
+        $pokemon->setUser($user);
+        $pokemon->setPokemonName($randomPkm->name);
+        $pokemon->setPokemonImage($randomPkm->sprites->front_default);
+        $user->setLastGame(date('Y-m-d'));
+        $em->persist($pokemon);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->render('home/capture.html.twig', [
+            'controller_name' => 'HomeController',
+            'name' => $pokemon->getPokemonName(),
+            'img' => $pokemon->getPokemonImage(),
+        ]);
+
 
     }
     private function spin() {
