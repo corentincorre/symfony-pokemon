@@ -19,4 +19,5 @@ class PokemonController extends AbstractController
             'pokemons' => $pr->findAll()
         ]);
     }
+
 }
