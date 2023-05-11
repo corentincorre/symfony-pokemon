@@ -13,10 +13,11 @@ use Doctrine\ORM\EntityManagerInterface;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home_page')]
-    public function index(PokemonRepository $pr): Response
+    public function index(UserInterface $user, PokemonRepository $pr): Response
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'user' => $user,
             'pokemons' => $pr->findAll()
         ]);
     }
@@ -41,6 +42,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/capture.html.twig', [
             'controller_name' => 'HomeController',
+            'user' => $user,
             'name' => $pokemon->getPokemonName(),
             'img' => $pokemon->getPokemonImage(),
         ]);
