@@ -22,7 +22,7 @@ class GameController extends AbstractController
     public function capture(UserInterface $user, EntityManagerInterface $em): Response
     {
         $randomPkm = $this->spin();
-        if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > date('Y-m-d',strtotime('-2 minutes')))){
+        if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > new \DateTime('-2 minutes'))){
             $this->addFlash('error', 'Aucun pokemon n\'a été trouvé');
             return $this->redirect('app_home_page');
         }
@@ -30,7 +30,7 @@ class GameController extends AbstractController
         $pokemon->setUser($user);
         $pokemon->setPokemonName($randomPkm->name);
         $pokemon->setPokemonImage($randomPkm->sprites->front_default);
-        $user->setLastGame(date('Y-m-d'));
+        $user->setLastGame(new \DateTime());
         $em->persist($pokemon);
         $em->persist($user);
         $em->flush();
