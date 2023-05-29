@@ -64,4 +64,8 @@ class Pokemon
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->pokemon_name;
+    }
 }

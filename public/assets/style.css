@@ -103,3 +103,15 @@ p:hover {
     right: 1em;
     bottom: 1em;
 }
+.pkm-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.pkm{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px rgba(51, 51, 51, .2);
+}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PokemonController!{% endblock %}
+{% block title %}Hello TradeController!{% endblock %}
 
 {% block body %}
 <style>
@@ -17,22 +17,20 @@
             </div>
         </div>
     </div>
+
 <div class="example-wrapper">
-    <h1>Mes Pokemons</h1>
-        {% if (pokemons|length)%}
-            <ul class="pkm-list">
-                {% for pokemon in pokemons %}
-                    <li class="pkm">
-                        <img src="{{pokemon.getPokemonImage()}}">
-                        {{pokemon.getPokemonName()}}
-                    </li>
-                {% endfor %}
-            </ul>
+    <h1>Historique des échanges</h1>
 
-        {% else %}
-            <p>Vous n'avez pas encore de Pokemons, capturez en un !</p>
+    {% if (trades|length)%}
+    <ul>
+        {% for trade in trades %}
+        <li>
 
-        {% endif %}
-        
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>Vous n'avez pas encore finaliser d'échanges</p>
+    {% endif %}
 </div>
 {% endblock %}

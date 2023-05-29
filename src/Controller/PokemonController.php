@@ -16,7 +16,7 @@ class PokemonController extends AbstractController
         return $this->render('pokemon/index.html.twig', [
             'controller_name' => 'PokemonController',
             'user' => $user,
-            'pokemons' => $pr->findAll()
+            'pokemons' => $pr->findBy(['user'=> $user])
         ]);
     }
 

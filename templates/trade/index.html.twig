@@ -21,10 +21,17 @@
 <div class="example-wrapper">
     <h1>Mes échanges</h1>
 
-    <a href="#">Créer un échange</a>
+    <a href="{{ path('app_trade_add') }}">Créer un échange</a>
+    {% if (trades|length)%}
     <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/coren/Documents/ECV/php/symfony/pokemon/src/Controller/TradeController.php'|file_link(0) }}">src/Controller/TradeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/coren/Documents/ECV/php/symfony/pokemon/templates/trade/index.html.twig'|file_link(0) }}">templates/trade/index.html.twig</a></code></li>
+        {% for trade in trades %}
+        <li>
+
+        </li>
+        {% endfor %}
     </ul>
+    {% else %}
+        <p>Vous n'avez d'échange en cours pour le moment</p>
+    {% endif %}
 </div>
 {% endblock %}

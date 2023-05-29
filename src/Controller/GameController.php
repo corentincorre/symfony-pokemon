@@ -22,7 +22,7 @@ class GameController extends AbstractController
     public function capture(UserInterface $user, EntityManagerInterface $em): Response
     {
         $randomPkm = $this->spin();
-        if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > new \DateTime('-2 minutes'))){
+        if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > new \DateTime('-30 minutes'))){
             $this->addFlash('error', 'Aucun pokemon n\'a été trouvé');
             return $this->redirect('/');
         }
