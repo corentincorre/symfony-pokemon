@@ -108,7 +108,24 @@ p:hover {
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
-.pkm{
+.pokedex-list{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding-left: 0;
+}
+.pokedex-list .pkm{
+    list-style: none;
+    font-size: 12px;
+    text-align: center;
+}
+.pokedex-list .pkm img{
+    max-height: 40px;
+}
+.pokedex-list .pkm p{
+    margin-top: 0;
+}
+.pkm-list .pkm{
     display: flex;
     align-items: center;
     list-style: none;

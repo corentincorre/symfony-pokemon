@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AccountController extends AbstractController
 {
     #[Route('/account', name: 'app_account')]
-    public function index(UserInterface $user, PokemonRepository $pr): Response
+    public function index(UserInterface $user): Response
     {
         return $this->render('account/index.html.twig', [
             'controller_name' => 'AccountController',

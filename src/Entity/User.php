@@ -48,11 +48,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'receiver', targetEntity: Trade::class)]
     private Collection $trades_receive;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Pokedex::class, orphanRemoval: true)]
+    private Collection $pokedexes;
+
     public function __construct()
     {
         $this->pokemon = new ArrayCollection();
         $this->trades_send = new ArrayCollection();
         $this->trades_receive = new ArrayCollection();
+        $this->pokedexes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -249,6 +253,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($tradesReceive->getReceiver() === $this) {
                 $tradesReceive->setReceiver(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Pokedex>
+     */
+    public function getPokedexes(): Collection
+    {
+        return $this->pokedexes;
+    }
+
+    public function addPokedex(Pokedex $pokedex): self
+    {
+        if (!$this->pokedexes->contains($pokedex)) {
+            $this->pokedexes->add($pokedex);
+            $pokedex->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePokedex(Pokedex $pokedex): self
+    {
+        if ($this->pokedexes->removeElement($pokedex)) {
+            // set the owning side to null (unless already changed)
+            if ($pokedex->getUser() === $this) {
+                $pokedex->setUser(null);
             }
         }
 
