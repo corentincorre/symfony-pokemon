@@ -122,6 +122,10 @@ p:hover {
 .pokedex-list .pkm img{
     max-height: 40px;
 }
+.pokedex-list .pkm img.unknow{
+    filter: grayscale(100%);
+    filter: contrast(10%);
+}
 .pokedex-list .pkm p{
     margin-top: 0;
 }

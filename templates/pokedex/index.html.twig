@@ -23,10 +23,18 @@
     {% if (pokemons|length)%}
         <ul class="pokedex-list">
     {% for pokemon in pokemons %}
-        <li class="pkm">
-            <img class="pokemon-image" src="{{pokemon.img}}">
-            <p>N°{{pokemon.num}} - {{pokemon.name}}</p>
-        </li>
+        {% if pokemon in catched %}
+            <li class="pkm">
+                <img class="pokemon-image" src="{{pokemon.img}}">
+                <p>N°{{pokemon.num}} - {{pokemon.name}}</p>
+            </li>
+        {% else %}
+            <li class="pkm">
+                <img class="pokemon-image unknow" src="{{pokemon.img}}">
+                <p>N°{{pokemon.num}} - ???</p>
+            </li>
+        {% endif %}
+
     {% endfor %}
         </ul>
     {% endif %}

@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Pokemon;
+use App\Entity\Pokedex;
+use App\Repository\PokedexRepository;
+use App\Repository\PokemonListRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +22,7 @@ class GameController extends AbstractController
         ]);
     }
     #[Route('/capture', name: 'app_capture')]
-    public function capture(UserInterface $user, EntityManagerInterface $em): Response
+    public function capture(UserInterface $user, EntityManagerInterface $em, PokemonListRepository $plr, PokedexRepository $pkr): Response
     {
         $randomPkm = $this->spin();
         if(!$randomPkm || ($user->getLastGame() && $user->getLastGame() > new \DateTime('-30 minutes'))){
@@ -31,7 +34,14 @@ class GameController extends AbstractController
         $pokemon->setPokemonName($randomPkm->name);
         $pokemon->setPokemonImage($randomPkm->sprites->front_default);
         $user->setLastGame(new \DateTime());
+        $pkmInList = $plr->findOneBy(['num' => $randomPkm->id]);
+        if(!$pkr->findOneBy(['user' => $user, 'pokemon' => $pkmInList])){
+            $pokedex = new Pokedex();
+            $pokedex->setUser($user);
+            $pokedex->setPokemon($pkmInList);
+        }
         $em->persist($pokemon);
+        $em->persist($pokedex);
         $em->persist($user);
         $em->flush();
 

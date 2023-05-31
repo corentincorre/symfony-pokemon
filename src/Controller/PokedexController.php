@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PokemonList;
 use App\Repository\PokemonListRepository;
+use App\Repository\PokedexRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,12 +14,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class PokedexController extends AbstractController
 {
     #[Route('/pokedex', name: 'app_pokedex')]
-    public function index(UserInterface $user, PokemonListRepository $plr): Response
+    public function index(UserInterface $user, PokemonListRepository $plr, PokedexRepository $pkr): Response
     {
+        $pokedex = $pkr->findBy(['user'=>$user]);
+        $catched = [];
+        foreach ($pokedex as $elem){
+
+            $catched[] = $elem->getPokemon();
+        }
+
         return $this->render('pokedex/index.html.twig', [
             'controller_name' => 'PokedexController',
             'user' => $user,
-            'pokedexex' => $user->getPokedexes(),
+            'catched' => $catched,
             'pokemons' => $plr->findAll()
         ]);
     }
