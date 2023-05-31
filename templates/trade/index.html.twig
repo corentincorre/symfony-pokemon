@@ -22,6 +22,7 @@
     <h1>Mes échanges</h1>
 
     <a href="{{ path('app_trade_add') }}">Créer un échange</a>
+    <a href="{{ path('app_trade_history') }}">Voir mon historique d'échanges</a>
     {% if (trades|length)%}
     <ul>
         {% for trade in trades %}

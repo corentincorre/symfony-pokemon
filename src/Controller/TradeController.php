@@ -29,7 +29,7 @@ class TradeController extends AbstractController
     public function history(UserInterface $user, TradeRepository $tr): Response
     {
 
-        return $this->render('trade/index.html.twig', [
+        return $this->render('trade/history.html.twig', [
             'controller_name' => 'TradeController',
             'user' => $user,
             'trades' => $tr->findBy(['sender'=>$user, 'state'=> ['accepté', 'annulé']]),
