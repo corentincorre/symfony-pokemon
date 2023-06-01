@@ -59,4 +59,24 @@ class TradeController extends AbstractController
             'controller_name' => 'TradeController',
         ]);
     }
+
+    #[Route('/trade/cancel/{id}', name: 'app_trade_cancel')]
+    public function cancel(EntityManagerInterface $em, TradeRepository $tr, $id): Response
+    {
+        $trade = $tr->findOneBy(['id'=>$id]);
+        $trade->setState('annulé');
+        $em->persist($trade);
+        $em->flush();
+        return $this->redirectToRoute('app_trade');
+    }
+
+    #[Route('/trade/accept/{id}', name: 'app_trade_accept')]
+    public function accept(EntityManagerInterface $em, TradeRepository $tr, $id): Response
+    {
+        $trade = $tr->findOneBy(['id'=>$id]);
+        $trade->setState('annulé');
+        $em->persist($trade);
+        $em->flush();
+        return $this->redirectToRoute('app_trade');
+    }
 }

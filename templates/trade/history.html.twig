@@ -24,9 +24,23 @@
     {% if (trades|length)%}
     <ul>
         {% for trade in trades %}
-        <li>
+            <li class="trade">
+                <div class="trade-resume">
+                    <div>
+                        <p>{{ trade.getSender().getUsername() }}</p>
+                        <img src="{{ trade.getSenderPokemon().getPokemonImage()}}">
+                        <p>{{ trade.getSenderPokemon() }}</p>
+                    </div>
+                    <div><-></div>
+                    <div>
+                        <p>{{ trade.getReciever().getUsername() }}</p>
+                        <img src="{{ trade.getRecieverPokemon().getPokemonImage()}}">
+                        <p>{{ trade.getRecieverPokemon() }}</p>
+                    </div>
+                </div>
+                    <p>{{ trade.state }}</p>
 
-        </li>
+            </li>
         {% endfor %}
     </ul>
     {% else %}
