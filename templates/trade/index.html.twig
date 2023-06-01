@@ -29,18 +29,18 @@
         <li class="trade">
             <div class="trade-resume">
                 <div>
-                    <p>{{ trade.getSender().getUsername() }}</p>
+                    <p>{{ trade.getSender() }}</p>
                     <img src="{{ trade.getSenderPokemon().getPokemonImage()}}">
                     <p>{{ trade.getSenderPokemon() }}</p>
                 </div>
                 <div><-></div>
                 <div>
-                    <p>{{ trade.getReciever().getUsername() }}</p>
+                    <p>{{ trade.getReciever() }}</p>
                     <img src="{{ trade.getRecieverPokemon().getPokemonImage()}}">
                     <p>{{ trade.getRecieverPokemon() }}</p>
                 </div>
             </div>
-            {% if(trade.getReciever() === user) %}
+            {% if(trade.getReciever() is same as(user)) %}
                 <a href="{{ path('app_trade_accept', {id:trade.getId()}) }}">Accepter</a>
                 <a href="{{ path('app_trade_cancel', {id:trade.getId()}) }}">Refuser</a>
             {% else %}

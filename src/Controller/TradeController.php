@@ -55,6 +55,7 @@ class TradeController extends AbstractController
 
         return $this->render('trade/add.html.twig', [
             'user' => $user,
+            'receiver' => $form->getData(),
             'form' => $form,
             'controller_name' => 'TradeController',
         ]);

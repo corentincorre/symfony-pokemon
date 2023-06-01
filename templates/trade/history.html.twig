@@ -27,13 +27,13 @@
             <li class="trade">
                 <div class="trade-resume">
                     <div>
-                        <p>{{ trade.getSender().getUsername() }}</p>
+                        <p>{{ trade.getSender() }}</p>
                         <img src="{{ trade.getSenderPokemon().getPokemonImage()}}">
                         <p>{{ trade.getSenderPokemon() }}</p>
                     </div>
                     <div><-></div>
                     <div>
-                        <p>{{ trade.getReciever().getUsername() }}</p>
+                        <p>{{ trade.getReciever() }}</p>
                         <img src="{{ trade.getRecieverPokemon().getPokemonImage()}}">
                         <p>{{ trade.getRecieverPokemon() }}</p>
                     </div>
