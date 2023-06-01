@@ -92,7 +92,18 @@ class TradeController extends AbstractController
     public function accept(EntityManagerInterface $em, TradeRepository $tr, $id): Response
     {
         $trade = $tr->findOneBy(['id'=>$id]);
-        $trade->setState('annulé');
+        $pkmSender = $trade->getSenderPokemon();
+        $pkmReceiver = $trade->getRecieverPokemon();
+        $sender = $trade->getSender();
+        $receiver= $trade->getReceiver();
+
+        $pkmSender->setUser($receiver);
+        $pkmReceiver->setUser($sender);
+
+        $trade->setState('accepté');
+
+        $em->persist($pkmSender);
+        $em->persist($pkmReceiver);
         $em->persist($trade);
         $em->flush();
         return $this->redirectToRoute('app_trade');
