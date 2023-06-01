@@ -19,18 +19,24 @@
     </div>
 
     <div class="example-wrapper">
-        <h1>Créer un échange</h1>
+        <h1>Créer un échange avec {{ receiver }}</h1>
 
         <form action="{{path('app_trade_add2')}}" method="post">
-            <select name="receiver" id="receiver">
-                <option value="">--Choisir une option--</option>
-                {% for receiver in users %}
-                    {% if not(user is same as receiver) %}
-                    <option value="{{ receiver.getId() }}">{{ receiver }}</option>
-                    {% endif %}
+            <input type="hidden" name="receiver" value="{{ receiver.getId() }}">
+
+            <select name="pkm-sender" id="pkm-sender">
+                <option value="">--Choisir un pokemon--</option>
+                {% for pkm in pkmSender %}
+                    <option value="{{ pkm.getId() }}">{{ pkm }}</option>
                 {% endfor %}
             </select>
-            <button>Continuer</button>
+            <select name="pkm-receiver" id="pkm-receiver">
+                <option value="">--Choisir un pokemon--</option>
+                {% for pkm in pkmReceiver %}
+                    <option value="{{ pkm.getId() }}">{{ pkm }}</option>
+                {% endfor %}
+            </select>
+            <button>Créer l'échange</button>
         </form>
 
     </div>

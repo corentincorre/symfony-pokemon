@@ -14,8 +14,8 @@ class AddTradeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('sender_pokemon', null, ['label' => 'Pokemon que vous voulez échanger'])
             ->add('receiver', null, ['label' => 'Partenaire d\'échange'])
+            ->add('sender_pokemon', null, ['label' => 'Pokemon que vous voulez échanger'])
             ->add('reciever_pokemon', null, ['label' => 'Pokemon que vous recevrez'])
             ->add('submit', SubmitType::class)
         ;

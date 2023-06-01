@@ -35,12 +35,12 @@
                 </div>
                 <div><-></div>
                 <div>
-                    <p>{{ trade.getReciever() }}</p>
+                    <p>{{ trade.getReceiver() }}</p>
                     <img src="{{ trade.getRecieverPokemon().getPokemonImage()}}">
                     <p>{{ trade.getRecieverPokemon() }}</p>
                 </div>
             </div>
-            {% if(trade.getReciever() is same as(user)) %}
+            {% if(trade.getReceiver() is same as(user)) %}
                 <a href="{{ path('app_trade_accept', {id:trade.getId()}) }}">Accepter</a>
                 <a href="{{ path('app_trade_cancel', {id:trade.getId()}) }}">Refuser</a>
             {% else %}
