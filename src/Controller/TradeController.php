@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Pokedex;
 use App\Entity\Trade;
 use App\Form\AddTradeType;
+use App\Repository\PokedexRepository;
+use App\Repository\PokemonListRepository;
 use App\Repository\TradeRepository;
 use App\Repository\UserRepository;
 use App\Repository\PokemonRepository;
@@ -89,7 +92,7 @@ class TradeController extends AbstractController
     }
 
     #[Route('/trade/accept/{id}', name: 'app_trade_accept')]
-    public function accept(EntityManagerInterface $em, TradeRepository $tr, $id): Response
+    public function accept(EntityManagerInterface $em, TradeRepository $tr,PokemonListRepository $plr, PokedexRepository $pkr, $id): Response
     {
         $trade = $tr->findOneBy(['id'=>$id]);
         $pkmSender = $trade->getSenderPokemon();
@@ -97,9 +100,26 @@ class TradeController extends AbstractController
         $sender = $trade->getSender();
         $receiver= $trade->getReceiver();
 
+        //echange des pokemons
         $pkmSender->setUser($receiver);
         $pkmReceiver->setUser($sender);
 
+        //verifie si dans les pokedex
+        $pkmSenderList = $plr->findOneBy(['name' => $pkmReceiver->getPokemonName()]);
+        if(!$pkr->findOneBy(['user' => $sender, 'pokemon' => $pkmSenderList])){
+            $senderPokedex = new Pokedex();
+            $senderPokedex->setUser($sender);
+            $senderPokedex->setPokemon($pkmSenderList);
+            $em->persist($senderPokedex);
+        }
+        $pkmReceiverList = $plr->findOneBy(['name' => $pkmSender->getPokemonName()]);
+        if(!$pkr->findOneBy(['user' => $receiver, 'pokemon' => $pkmReceiverList])){
+            $receiverPokedex = new Pokedex();
+            $receiverPokedex->setUser($receiver);
+            $receiverPokedex->setPokemon($pkmReceiverList);
+            $em->persist($receiverPokedex);
+        }
+        //changement du statut de la trade
         $trade->setState('accepté');
 
         $em->persist($pkmSender);
