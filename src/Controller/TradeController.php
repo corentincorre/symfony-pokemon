@@ -55,7 +55,7 @@ class TradeController extends AbstractController
         $receiver = $ur->findOneBy(['id'=>$receiver]);
         $trade = new Trade();
         $trade->setSender($user);
-        $trade->setReceiver($user);
+        $trade->setReceiver($receiver);
         $pkmSender = $request->request->get('pkm-sender');
         $pkmReceiver = $request->request->get('pkm-receiver');
         if ($pkmSender && $pkmReceiver){

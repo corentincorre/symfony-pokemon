@@ -136,3 +136,20 @@ p:hover {
     border-radius: 5px;
     box-shadow: 0 0 10px 2px rgba(51, 51, 51, .2);
 }
+.trade{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 2px rgba(51, 51, 51, .2);
+    padding: 10px;
+}
+.trade-resume{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.trade-resume p{
+    margin: 0;
+}

@@ -41,8 +41,10 @@
                 </div>
             </div>
             {% if(trade.getReceiver() is same as(user)) %}
-                <a href="{{ path('app_trade_accept', {id:trade.getId()}) }}">Accepter</a>
-                <a href="{{ path('app_trade_cancel', {id:trade.getId()}) }}">Refuser</a>
+                <div>
+                    <a href="{{ path('app_trade_accept', {id:trade.getId()}) }}">Accepter</a>
+                    <a href="{{ path('app_trade_cancel', {id:trade.getId()}) }}">Refuser</a>
+                </div>
             {% else %}
                 <p>En Attente d'une réponse</p>
             {% endif %}
